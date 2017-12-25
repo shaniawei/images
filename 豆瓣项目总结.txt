@@ -1,0 +1,190 @@
+## 文本对齐
+
+主要是文字与图片对齐，两个并列的块状元素的对齐。解决：使用vertical-align，value设为middle/top。有时会使用margin/padding
+
+## div垂直水平居中
+
+**html代码：**
+
+注：子元素son相对于父元素father进行垂直居中。
+
+```html
+<div class="father">
+ <div class="son"></div>
+</div>
+```
+
+1）知道子元素son的宽高度情况下，可使用相对绝对定位+margin负值，也可以使用绝对定位。
+
+```css
+//相对绝对定位+margin负值
+.father{
+  position: relative;    //father元素在这里需指明宽高度，如果需要相对浏览器可视窗口垂直水平居中则无需指明相对定位元素。
+}
+.son{
+ border:1px solid red;
+ position: absolute;
+ width: 200px;
+ height: 200px;
+ top: 50%;
+ left: 50%;
+ margin-left: -100px;
+ margin-top: -100px;
+}
+```
+
+```css
+//绝对定位
+.father{
+  position: relative;    //father元素在这里需指明宽高度，如果需要相对浏览器可视窗口垂直水平居中则无需指明相对定位元素。
+}
+.son{
+ border:1px solid red;
+ position: absolute;
+ width: 200px;
+ height: 200px;
+ top: 0;
+ left: 0;
+ right:0;
+ bottom:0;
+ margin:auto;
+}
+```
+
+2）不知道子元素son的宽高度情况下，可使用transform属性，或者使用flex布局。
+
+```css
+//transform属性
+.father{
+  position: relative;    //father元素在这里需指明宽高度，如果需要相对浏览器可视窗口垂直水平居中则无需指明相对定位元素。
+}
+.son{
+ border:1px solid red;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform:translate(-50%,-50%);
+}
+```
+
+```HTML
+//flex布局
+.father{          
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.son{
+  
+}
+```
+
+## 高位坍塌的几种方式
+
+```css
+（1）给父元素加上overflow：hidden
+
+（2）给父元素加上伪元素after｛content:".";line-height:0px;display:block;clear:both;visibility:hidden}
+
+（3）在父元素的最后面加一个子元素div。其css样式设为clear:both
+
+```
+
+## 盒模型的转换：box-sizing的使用
+
+给一个div设置固定宽度200px，在给它加padding:5px后，占用的空间会变大。如何保持不变只有200px。使用box-sizing:border-box。
+
+## 边框透明该怎么做？
+
+给一个div加一个边框boder:4px solid rgba(183,187,183,0.5)发现边框并没有透明，而是颜色变淡。之后又给这个div加了background-color:transparent样式，边框才透明，而且两者必须同时使用。但是这样一来整个div都是透明的了，无奈，最后我只有在这个div中嵌套一个div，并给他加上背景颜色，此外还没有找到其他方法。
+
+## 实现块状元素拖动出现的问题
+
+实现拖动一个div元素，拖动时这个div总是自己跑到浏览器的左上角去？因为我给这个div加了一个ttransform: translate(-50%,-50%)，
+每次改变了left和top之后都会在执行transform，导致这个div总是往左上角跑。
+
+```css
+.box{
+   	width: 100px;
+   	height: 100px;
+   	background-color: red;
+   	position: relative;    //需移动的元素必须设置position值，给它定位
+   }
+```
+
+```javascript
+var x,y,temp,left,t,flag;
+  	$(".box").on("mousedown",function(e){
+  		x=e.pageX;
+  		y=e.pageY;
+  		temp=$(this).position();
+  		left=temp.left;
+  		t=temp.top;    //不能“top=temp.top”因为Windows有个top属性
+  		flag=true;
+  	})
+  	$(document).on("mousemove",function(e){
+  	 if(flag){
+  		$(".box").css({
+  			"left":e.pageX-x+left,
+  			"top":e.pageY-y+t
+  		})
+  		// $(".box").css("left",e.pageX-x+left).css("top",e.pageY-y+t)
+  	 }
+  	}).on("mouseup",function(){
+  		flag=false;
+  	})
+```
+
+## 缩小浏览器窗口时如何保证页面布局不变
+
+**问题1：**两边留白处设置绝对margin值，内容处有些没有设置宽度，设置min-width值为浏览器窗口宽度大小时没有效果，必须要设置比较大的值(譬如8000px)才会有效果，但是浏览器下端马上就会出现滚动条，而且左右两栏之间的隔间太大。
+**解决方式：**在整个框架中使用margin:0 auto，不要设置绝对margin值，注意使用该属性的元素必须有实际的width，自适应margin大小，优先内容width，min-width值设置为页面中最大的宽度即可。
+
+**问题2：**当缩小浏览器窗口时，页面的背景图尺寸会变化，背景上面的内容也会随之移动，在IE浏览器中背景图位置直接改变了。
+
+**解决方案：**使用background-position:center后，问题解决，原因不明。
+
+## 事件冒泡
+
+**问题：**做一个下拉菜单的时候，给一个span元素加一个click事件，点击出现，在点击消失。我想实现点击document的时候这个菜单也要消失，给document也绑定了一个click事件。结果导致我在点击span这个元素的时候居然没有效果了。
+
+**原因：**因为点击span的时候触发了给span绑定的click事件，下拉出现，但是这次的点击会冒泡到document上触发给document绑定的click事件，下拉消失，所以这个时候点击span没有任何效果。
+
+解决方式：使用stopPropagation阻止冒泡，在ie中使用calcelBubble=true来阻止冒泡。
+
+## 事件委托
+
+**问题：**在豆瓣网站中的文章编辑页面中，有一个添加常用标签的地方，用table做的。我需要给每一个常用标签td添加一个click事件，点击一次将标签内容显示在上方的input输入框中，当时想的是每个td的className都取相同的，然后添加一个click事件，但是效果不尽人意，只能出现一个，原来我获取到的是一个数组，并不是其中某个jquery对象，然后就想用eq()，但是数组中的索引应该怎么用一个变量表示出来呢，还是没法实现。最笨的办法就是给每一个td绑定一个click事件，这样子非常占用内存，重复很多代码。
+
+解决方案：使用时间委托机制，利用事件冒泡原理，给父元素绑定一个click事件即可，这里给table绑定一个click事件，点击td时冒泡带table上触发click事件。
+
+在最后又出现了一个问题：当我点击到tr元素时也会触发table上的click事件，当时想到的办法就是获取目标对象的tagName，如果tagName==a（td内还有一个a标签），那就执行，反之不进行操作。但是判断目标对象的tagName是否等于a，结果没有出现任何效果，反而刷新了页面，最后是到控制台上用console.log输出尝试，到底应该如何操作，发现目标对象的tagName居然等于大写A，而不是小写a，解决问题。
+
+## JavaScript获取标签内的属性值
+
+实现lazyload懒加载图片时，dom元素获取属性值需要通过getAttribute方法获取，jQuery元素需要通过attr方法获取
+
+## 更新session
+
+给user表的一个字段，比如IMG，用户的头像，添加照片时，记得更新session。否则刷新以下就会消失。
+
+## 浏览器的兼容问题
+
+（1）图片的border，标准浏览器默认图片的border为0px，而ie浏览器默认图片border是有值的，具体多少还不清楚。
+（2）img标签如果没有设置src值，ie浏览器会显示图片标志出来，而不是没有内容
+（3）input输入框中的placeholder属性ie不支持，要如何实现兼容
+
+?           http://www.cnblogs.com/wang715100018066/p/6125099.html
+
+## 改变placehodler文字的颜色
+
+```css
+::-moz-placeholder{color:red;}              //Firefox
+::-webkit-input-placeholder{color:red;}     //Chrome,Safari
+:-ms-input-placeholder{color:red;}          //IE10
+```
+
+## 头像上传
+
+前端触发一个input type=file类型的input框的submit事件，然后在监听其change事件，并用jQUery的一个插件ajaxSubmit来把这个文件数据上传到后台，后台用formidable这个中间件来接收，把图片存放在指定的路径中，并且把图片的存储路径放入数据库，再返回这个图片的路径给前端就行了，至于为什么要ajaxSubmit插件来上传文件，是因为不想在上传用户头像的时候刷新整个页面。
+

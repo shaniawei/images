@@ -1,0 +1,968 @@
+以下是我通过查阅各方资料整合而成，个人认为是前端开发工程师必须掌握的基本知识。笔者部分内容并没有完全掌握，只是了解，还需进一步学习。
+
+其他学习内容：
+
+1. 正则表达式       //5月18日学习完毕，大概理解会用。
+2. vue.js以及响应式布局(bootstrap框架学习以及项目开发)
+3. 移动端开发——>html5的web app(react.js框架学习以及项目开发)
+4. 微信开发——>8月29日模糊理解，做了很多移动端页面，主要使用rem布局
+5. flex布局与rem布局，深度了解jQuery以及JavaScript知识
+6. css预处理器，less、sass等
+7. 一门后台语言的掌握(笔者选择PHP，对于node.js也只是了解，还需深度学习)
+8. 数据结构与算法学习
+9. 数据库学习
+
+# HTML
+
+## html5的新特性
+
+1、标签语义化，比如header，footer，nav，aside，article，section等，新增了很多表单元素，入email，url等，除去了center等样式标签，还有除去了有性能问题的frame，frameset等标签
+
+2、音视频元素，video，audio的增加使得我们不需要在依赖外部的插件就可以往网页中加入音视频元素。
+
+3、新增很多api，比如获取用户地理位置的window.navigator.geoloaction，
+
+4、websocket
+
+websocket是一种协议，可以让我们建立客户端到服务器端的全双工通信，这就意味着服务器端可以主动推送数据到客户端，
+
+5、webstorage，webstorage是本地存储，存储在客户端，包括localeStorage和sessionStorage，localeStorage是持久化存储在客户端，只要用户不主动删除，就不会消失，sessionStorage也是存储在客户端，但是他的存在时间是一个回话，一旦浏览器的关于该回话的页面关闭了，sessionStorage就消失了，
+
+6、缓存
+
+html5允许我们自己控制哪些文件需要缓存，哪些不需要，具体的做法如下：
+
+```
+1、首先给html添加manifest属性，并赋值为cache.manifest
+2、cache.manifest的内容为: 
+         CACHE MANIFEST
+         #v1.2
+         CACHE :           //表示需要缓存的文件
+           a.js
+           b.js
+       NETWORK:    //表示只在用户在线的时候才需要的文件，不会缓存
+         c.js
+       FALLBACK
+       /        /index.html     //表示如果找不到第一个资源就用第二个资源代替
+```
+
+7、web worker，web worker是运行在浏览器后台的js程序，他不影响主程序的运行，是另开的一个js线程，可以用这个线程执行复杂的数据操作，然后把操作结果通过postMessage传递给主线程，这样在进行复杂且耗时的操作时就不会阻塞主线程了。
+
+## html5标签的使用
+
+<audio> 标签定义声音，比如音乐或其他音频流。
+<canvas> 标签定义图形，比如图表和其他图像。<canvas> 标签只是图形容器，您必须使用脚本来绘制图形。
+
+<article>标签定义外部的内容。比如来自一个外部的新闻提供者的一篇新的文章，或者来自 blog 的文本，或者是来自论坛的文本。亦或是来自其他外部源内容。
+<menu> 标签定义命令的列表或菜单。<menu> 标签用于上下文菜单、工具栏以及用于列出表单控件和命令。 
+command 元素表示用户能够调用的命令。<command> 标签可以定义命令按钮，比如单选按钮、复选框或按钮。只有当 command 元素位于 menu 元素内时，该元素才是可见的。否则不会显示这个元素，但是可以用它规定键盘快捷键。 
+
+## canvas的使用
+
+http://blog.csdn.net/clh604/article/details/8536059
+
+## 本地存储和离线存储
+
+参考：http://www.jianshu.com/p/fff9e5c46b9e
+
+# CSS
+
+## css选择器
+
+  1.id选择器(# myid) 
+
+  2.类选择器(.myclassname) 
+
+  3.标签选择器(div, h1, p) 
+
+  4.相邻选择器(h1 + p) 
+
+  5.子选择器(ul > li) 
+
+  6.后代选择器(li a) 
+
+  7.通配符选择器( * ) 
+
+  8.属性选择器(a[rel = "external"]) 
+
+  9.伪类选择器(a: hover, li:nth-child) 
+
+**子选择器，后代选择器，相邻选择器的区别**
+
+参考：http://www.cnblogs.com/engeng/p/5970560.html
+
+## 选择器权重
+
+第一等：!important
+
+第一等：代表内联样式，如: style=””，权值为1000。
+
+第二等：代表ID选择器，如：#content，权值为100。
+
+第三等：代表类，伪类和属性选择器，如.content，权值为10。
+
+第四等：代表标签选择器和伪元素选择器，如div p，权值为1。
+
+  **疑点：!important支持哪些浏览器，IE支不支持？**
+
+```css
+.mm{
+  color:blue !important;
+    color:red;
+    }
+```
+
+这种样式IE6识别不出来，颜色显示是red，还是IE都不支持?
+
+```css
+.mm{
+   color:blue !important;
+}
+.mm{
+   color:red;
+ }
+```
+
+这样IE6支持，还是IE都支持，颜色显示是blue？
+
+## css可继承的样式
+
+参考：http://www.cnblogs.com/thislbq/p/5882105.html
+
+  1.font-size 
+
+  2.font-family 
+
+  3.color 
+
+  4.text-indent 
+
+## px、em和rem有什么区别？
+
+em和rem的区别：浏览器根据谁来转化成`px` 的值。
+
+**rem：** 根据根元素html的字体大小的调整。
+
+**em：** 像素值是`em`值乘以上一层使用`em`单位的元素的字体大小。
+
+说明：有个误解就是认为 `em` 单位是相对于父元素的字体大小，事实上它们是相对于使用`em` 单位的元素的字体大小。之所以会误解，是因为父元素继承了em元素的原因。
+
+参考：http://www.cnblogs.com/isItOk/p/5082445.html
+
+## css的伪元素
+
+- `:first-letter` 
+- `:first-line`
+- `:before`
+- `:after`
+- `::selection`
+
+参考：http://www.cnblogs.com/xiaohuochai/p/5021121.html
+
+## overflow的参数含义
+
+1. 参数是scroll时候，必会出现滚动条。
+2. 参数是auto时候，子元素内容大于父元素时出现滚动条。
+3. 参数是visible时候，溢出的内容出现在父元素之外。
+4. 参数是hidden时候，溢出隐藏。
+
+## position的参数含义
+
+http://blog.csdn.net/chen_zw/article/details/8741365
+
+- **position:static　无定位**
+
+该属性值是所有元素定位的默认情况，在一般情况下，我们不需要特别的去声明它，但有时候遇到继承的情况，我们不愿意见到元素所继承的属性影响本身，从而可以用position:static取消继承，即还原元素定位的默认值。
+
+- **position:absolute　绝对定位  脱离文档流**
+
+使用position:absolute，能够很准确的将元素移动到你想要的位置，
+
+- **position:fixed　相对于窗口的固定定位，脱离文档流**
+
+这个定位属性值是什么意思呢？元素的定位方式同absolute类似，但它的包含块是视区本身。在屏幕媒体如WEB浏览器中，元素在文档滚动时不会在浏览器视察中移动。例如，它允许框架样式布局。在页式媒体如打印输出中，一个固定元素会出现于第一页的相同位置。这一点可用于生成流动标题或脚注。我们也见过相似的效果，但大都数效果不是通过CSS来实现了，而是应用了JS脚本。
+请特别注意，IE6不支持CSS中的position:fixed属性。真的非常遗憾，要不然我们就可以试试这种酷酷的效果了。
+
+- **position:relative　相对定位  没有脱离文档流，不可层叠**
+
+所谓相对定位到底是什么意思呢，是基于哪里的相对呢？我们需要明确一个概念，相对定位是相对于元素默认的位置的定位。既然是相对的，我们就需要设置不同的值来声明定位在哪里，top、bottom、left、right四个数值配合，来明确元素的位置。
+
+## css Sprites
+
+CSS Sprites在国内很多人叫css精灵，是一种网页图片应用处理方式。它允许你将一个页面涉及到的所有零星图片都包含到一张大图中去，这样一来，当访问该页面时，载入的图片就不会像以前那样一幅一幅地慢慢显示出来了。
+利用CSS的“background-image”，“background- repeat”，“background-position”的组合进行背景定位，background-position可以用数字精确的定位出背景图片的位置。
+利用CSS Sprites能很好地减少网页的http请求，从而大大的提高页面的性能，这也是CSS Sprites最大的优点，也是其被广泛传播和应用的主要原因；
+CSS Sprites能减少图片的字节，曾经比较过多次3张图片合并成1张图片的字节总是小于这3张图片的字节总和。
+解决了网页设计师在图片命名上的困扰，只需对一张集合的图片上命名就可以了，不需要对每一个小元素进行命名，从而提高了网页的制作效率。
+更换风格方便，只需要在一张或少张图片上修改图片的颜色或样式，整个网页的风格就可以改变。维护起来更加方便。
+
+## 行内元素与块状元素的区别
+
+http://blog.csdn.net/jlds123/article/details/8647448
+
+（1）行内元素水平方向排列，每一个行内元素不会霸占一行，占据空间依赖于内容的大小。块状元素垂直方向排列，每个块状元素都会霸占一整行。
+（2）块状元素内可以包括行内元素+块状元素，行内元素内不能包括块状元素。
+（3）行内元素不可以设置width/height，margin上下值+padding上下值无效。img标签和input怎么可以设置宽高?
+
+## 盒模型
+
+标准盒模型，IE盒模型的区别。width在这其中分别代表着什么？
+http://www.cnblogs.com/cxying93/p/6063482.html
+
+## css实现尖角
+
+涉及知识点：before、after两个伪元素；border
+
+1. **用一个span标签实现一个三角形**
+
+   ```css
+   span{
+       display: block;  //必须有，不然就必须设置position定位，position属性值只能为absolute和fixed
+       width: 0px;   //视情况可省略
+       height: 0px;  //视情况可省略
+       border-left: 10px solid red;
+       border-top: 10px solid transparent;
+       border-bottom: 10px solid transparent;
+   }
+   ```
+
+2. **实现一个带尖角的正方形**
+
+```HTML
+<div class="box"></div>
+```
+
+```css
+.box{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 2px solid #000;
+    background-color: #fff;
+}
+.box:before{
+    position: absolute;
+    left: 200px;
+    top: 20px;    //定位尖角的位置(上、下、左、右)
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 10px solid #000;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+.box:after{
+    position: absolute;
+    left: 200px;
+    top: 23px;   ////定位尖角的位置(上、下、左、右)
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 7px solid #fff;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+}
+```
+
+## animation、transform、transition
+
+### transform、tranceform-style、transform-origin
+
+```
+transform只支持Firefox，Opera，IE10。Opera 只支持 2D 转换。
+IE9 支持替代的 -ms-transform 属性（仅适用于 2D 转换）。
+Safari 和 Chrome 支持替代的 -webkit-transform 属性（3D 和 2D 转换）。
+```
+
+```css
+transform-style：使被转换的子元素保留其 3D 转换
+Firefox 支持 transform-style 属性。IE不支持
+Chrome、Safari 和 Opera 支持替代的 -webkit-transform-style 属性。
+例如：
+div
+{
+transform: rotateY(60deg);
+transform-style: preserve-3d;
+-webkit-transform: rotateY(60deg);	/* Safari 和 Chrome */
+-webkit-transform-style: preserve-3d;	/* Safari 和 Chrome */
+}
+```
+
+```css
+transform-origin：设置旋转元素的基点位置
+IE10、Firefox、Opera 支持 transform-origin 属性。Opera 只支持 2D 转换。
+Internet Explorer 9 支持替代的 -ms-transform-origin 属性（仅适用于 2D 转换）。
+Safari 和 Chrome 支持替代的 -webkit-transform-origin 属性（3D 和 2D 转换）。
+div
+{
+transform: rotate(45deg);
+transform-origin:20% 40%;
+-ms-transform: rotate(45deg); 		/* IE 9 */
+-ms-transform-origin:20% 40%; 		/* IE 9 */
+-webkit-transform: rotate(45deg);	/* Safari 和 Chrome */
+-webkit-transform-origin:20% 40%;   /* Safari 和 Chrome */
+}
+```
+
+### animation
+
+```css
+IE10、Firefox 以及 Opera 支持 animation 属性。Safari 和 Chrome 支持替代的 -webkit-animation 属性。
+animation-name	规定需要绑定到选择器的 keyframe 名称。。
+animation-duration	规定完成动画所花费的时间，以秒或毫秒计。
+animation-timing-function	规定动画的速度曲线。(linear/ease/ease-in/ease-out/ease-in-out/cubic-bezier(n,n,n,n))
+animation-delay	规定在动画开始之前的延迟，可以是负数。
+animation-iteration-count	规定动画应该播放的次数，(n/infinite)
+animation-direction	规定是否应该轮流反向播放动画，(normal/alternate)
+例如：
+div
+{
+width:100px;
+height:100px;
+background:red;
+position:relative;
+animation:mymove 5s infinite;
+-webkit-animation:mymove 5s infinite; /*Safari and Chrome*/
+}
+@keyframes mymove
+{
+from {left:0px;}
+to {left:200px;}
+}
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+from {left:0px;}
+to {left:200px;}
+}
+```
+
+### transition
+
+```css
+Internet Explorer 10、Firefox、Opera 和 Chrome 支持 transition 属性。
+Safari 支持替代的 -webkit-transition 属性。
+transition-property	规定设置过渡效果的 CSS 属性的名称。
+transition-duration	规定完成过渡效果需要多少秒或毫秒。
+transition-timing-function	规定速度效果的速度曲线。
+transition-delay	定义过渡效果何时开始。
+div
+{
+width:100px;
+height:100px;
+background:blue;
+transition:width 2s;
+-moz-transition:width 2s; /* Firefox 4 */
+-webkit-transition:width 2s; /* Safari and Chrome */
+-o-transition:width 2s; /* Opera */
+}
+div:hover
+{
+width:300px;
+}
+```
+
+# JavaScript
+
+## console常用方法有哪些？
+
+```javascript
+console.log(); //打印记录
+
+console.info(); //同上
+
+console.error(); //输出错误信息
+
+console.warn(); //输出警告信息
+
+console.profile("消耗时间");//调试afunction()的运行消耗时间
+
+afunction();
+
+console.profileEnd();
+
+console.time("计时器"); //记录afunction()的运行时间
+
+afunction();
+
+console.timeEnd("计时器");
+
+```
+
+## JavaScript如何创建正则表达式，其内置方法有哪些？
+
+**创建** 
+
+```javascript
+// 方式1
+var box = new RegExp('b','ig');
+console.log(box.test("acdef")); //false
+
+// 方式2
+var box2 = /\d/ig;
+console.log(box2.test("wweee1bb")); //true
+```
+
+注意：（三种模式）
+
+- i 表示忽略大小写
+- g 表示全局匹配
+- m 表示多行匹配
+
+**pattern.test(str)、exec** 
+
+```javascript
+//test方法，返回是否匹配到
+var pattern = /box/i;
+var str = "This is a Box!";
+console.log(pattern.test(str)); // true
+```
+
+```javascript
+//exec方法，返回一个数组，这个一个非常强大的方法，必须掌握
+var pattern2 = /box/ig;
+var str2 = "This is a Box Box!"
+console.log(pattern2.exec(str2)); //["Box", index: 10, input: "This is a Box Box!"]
+```
+
+**常用方法match(pattern)** 
+
+```javascript
+//match方法，获得匹配数组，若没有匹配，则返回null
+var pattern3 = /\d/g;
+var str3 = "abc2ccde3e";
+console.log(str3.match(pattern3)); //["2", "3"]
+```
+
+**常用方法search(pattern)** 
+
+```javascript
+// search方法，返回第一个搜索到的匹配的位置，其全局属性g是无效的，因为一查到就会马上返回。
+var pattern3 = /\d/g;
+var str3 = "abc2ccde3e";
+console.log(str3.search(pattern3)); //3
+```
+
+**常用方法replace(pattern, str)** 
+
+```javascript
+//replace方法，替换
+var pattern2 = /box/ig;
+var str2 = "This is a Box Box!"
+console.log(str2.replace(pattern2, "Tom")); //This is a Tom Tom!
+```
+
+**常用方法split(pattern)** 
+
+```javascript
+//split方法，分割
+var pattern4 = / /g;
+var str4 = "Today is a happy day";
+console.log(str4.split(pattern4)); //["Today", "is", "a", "happy", "day"]
+```
+
+## 闭包
+
+## 作用域及作用域链
+
+## 原型链
+
+## 继承
+
+http://www.cnblogs.com/hlwyfeng/p/6079250.html
+
+基于prototype属性举例说明：
+1.delete操作符不能删除对象原型链上的属性
+2.如果两个对象的构造函数相同（通过construtor方法），他们两个不一定是同一类型的对象。
+3.不能通过instanceof方法、typeof方法判断两个对象是不是同一类型的对象。
+
+## 事件
+
+### DOM事件流：事件冒泡和事件捕获
+
+事件冒泡，指从最具体的节点(事件发生地)传播到最不具体的节点，IE只支持事件冒泡机制。(事件发生地->...->body->html->document)
+
+事件捕获，指从最不具体的节点传播到最具体的节点(事件发生地)。(document->html->body->...->事件发生地)
+
+netscape 和 微软 曾经的战争还是比较火热的，当时， netscape 主张捕获方式，微软主张冒泡方式。后来 w3c 采用折中的方式，平息了战火，制定了统一的标准——先捕获再冒泡。
+
+**注意：**在事件发生地是不分事件冒泡和事件捕获的。假设在事件发生地绑定了两个click事件，一个规定冒泡机制，另一个规定捕获机制，这两个事件发生的先后是按照定义的先后顺序发生的，与冒泡捕获无关。
+
+```HTML
+<div id="s1">s1
+  <div id="s2">
+   	 s2
+  </div>
+</div>
+```
+
+```javascript
+    var s1=document.getElementById("s1");
+  	var s2=document.getElementById("s2");
+  	s1.addEventListener("click",function(){
+  		console.log("s1+冒泡");
+  	},false)
+  	s1.addEventListener("click",function(){
+  		console.log("s1+捕获");
+  	},true)
+    s2.addEventListener("click",function(){
+  		console.log("s2+冒泡");
+  	},false)
+  	s2.addEventListener("click",function(){
+  		console.log("s2+捕获");
+  	},true)
+//点击s2，返回s1+捕获 s2+冒泡 s2+捕获 s1+冒泡
+```
+
+参考：http://www.cnblogs.com/hustskyking/p/problem-javascript-event.html
+
+### 事件处理模型
+
+#### 原始事件处理模型
+
+**第一种：**作为html标签性质的事件处理，例如<div onclick="foo();"></div>，在script标签中将foo函数定义好，然后再把这个函数调用赋给事件函数。
+
+**第二种：**作为JavaScript属性的事件处理，例如ele.onclick=function(){......},或者是ele.onclick=foo;   foo是一个定义好的函数。
+
+*注意：*原始事件模型都是以冒泡的形式向上传播的。 
+
+#### 标准事件处理模型和IE事件处理模型
+
+>  **标准事件模型既能发生冒泡传播也能发生捕获传播**
+
+元素使用 **addEventListener(type,handler,false)** 方法绑定事件处理程序，有三个参数，第一个参数是事件类型(click，mousedown等)，注意没有前缀on，第二个是处理函数（当然也可以是匿名函数），最后一个参数是布尔值，如果为true,则只用于事件捕获传播阶段，如果为false则只用于事件冒泡传播阶段，一般我们把它设为false。
+
+例如：element.addEventListener(“click”,f,false)    //其中f为一个函数
+
+**removeEventListener()** 该方法用来解除事件绑定，它的三个参数与**addEventListener()** 相同。
+
+> **IE事件模型只支持事件冒泡传播**
+
+元素使用**attacthEvent(type,handler)**  方法绑定事件处理程序，该方法只有2个参数，一个为事件类型(click，mousedown等)，注意有前缀on，第二个为事件处理函数。
+
+例如 element.attachEvent(“onclick”,f)    //其中f为一个函数
+
+**detachEvent()**  该方法用来解除事件绑定，参数与**attacthEvent()**  相同
+
+
+
+标准事件处理模型和IE事件处理模型的一大优势是可以给同一个元素绑定多个事件处理函数，这些事件函数执行的顺序并不能确定，但一般来说是按绑定的先后顺序来执行，如果绑定了重复的事件函数，则只有第一个会生效。
+
+**addEventListener()** 与**attacthEvent()**  的一个重要差别是**attacthEvent()**绑定的事件处理函数中的**this**关键字永远是指向window对象的，而**addEventListener()** 绑定的事件处理函数中的**this**指向的是发生了事件的元素。
+
+### 事件对象
+
+参考：http://www.jianshu.com/p/736016beb57b
+
+### 事件监听兼容性代码
+
+```javascript
+var EventUtil={
+  addListener:function(element,type,handler){   //事件的绑定
+    if(element.addEventListener){
+        element.addEventListener(type,handler,false);
+    }else if(element.attachEvent){
+        element.attachEvent("on"+type,handler);
+    }else{
+        element["on"+type]=handler;
+    }
+  },
+ removeListener:function(element,type,handler){    //解除事件绑定
+      if(element.removeEventListener){    
+        element.removeEventListener(type,handler);    //这里的handler指的是函数名，不可以是匿名函数，这就意味着绑定的匿名函数无法通过这种方式被解除。      
+     }else if(element.detachEvent){
+        element.detachEvent("on"+type,handler);    //这里的handler指的是函数名，不可以是匿名函数，这就意味着绑定的匿名函数无法通过这种方式被解除。      
+     }else{
+        element["on"+type]=null;
+     }
+  },
+ getEvent:function(e){      //获取事件对象
+     var evt=window.event||e;
+     return evt;
+ },
+ getTarget:function(e){      //获得目标对象
+     var evt=EventUtil.getEvent(e);
+     var target;
+     if(evt.target){ target=evt.target;}
+     else {target=evt.srcElement;}
+     return target;
+ },
+ stopPropagation:function(e){  //停止事件的传播(冒泡/捕获)
+     var evt=EventUtil.getEvent(e);
+     if(evt.stopPropagation) {evt.stopPropagation();}
+     else {evt.cancelBubble=true;}
+ },
+ preventDefault:function(e){   //阻值默认行为的发生
+     var evt=EventUtil.getEvent(e);
+     if(evt.preventDefault){ evt.preventDefault(); }
+     else {e.returnValue=false;}
+ }
+}
+```
+
+### 事件代理
+
+事件代理也称事件委托，指的是利用事件的冒泡机制，只需要指定一个事件处理程序，就可以管理某一类事件的所有事件。
+
+**使用事件代理的原因：可以提高性能**
+
+例如：假设有100个li，我们要给每一个li绑定相同的click事件，可以直接给每个li绑定，也可以使用for循环遍历每一个li给其添加事件。
+
+1. 减少重构(redraw)和回流(reflow) 
+
+   不断的与dom节点进行交互，访问dom的次数越多，引起浏览器重绘与重排的次数也就越多，就会延长整个页面的交互就绪时间，如果用事件委托，就会将所有的操作放到一个事件处理程序里面，与dom的操作就只需要交互一次，这样就能大大的减少与dom的交互次数，提高性能。
+
+2. 节省内存
+
+   每个函数都是一个对象，是对象就会占用内存，对象越多，内存占用率就越大。如果用事件委托，那么我们就可以只对它的父级（如果只有一个父级）这一个对象进行操作，这样我们就需要一个内存空间就够了。
+
+事件代理参考：http://www.cnblogs.com/liugang-vip/p/5616484.html
+
+[jQuery的事件委托方法bind、live、delegate、on之间的区别？](http://blog.csdn.net/yummy_go/article/details/50667649)
+
+重构回流参考：http://kb.cnblogs.com/page/169820/
+
+## cookie和session
+
+cookie:服务器存储在浏览器的数据
+session:服务器存储在服务器的数据
+
+参考：http://blog.csdn.net/fangaoxin/article/details/6952954/
+
+## JSON
+
+json是一种数据交换格式，{username:1,pasword:2},
+
+## 同源策略及跨域
+
+**同源策略：**同源策略是浏览器有一个很重要的概念。所谓同源是指，域名，协议，端口相同。不同源的客户端脚本(javascript、ActionScript)在没明确授权的情况下，不能读写对方的资源。简单的来说，浏览器允许包含在页面A的脚本访问第二个页面B的数据资源，这一切是建立在A和B页面是同源的基础上。
+
+**跨域的几种方式：**
+
+jsonp（利用script标签的跨域能力）跨域、websocket（html5的新特性，是一种新协议）跨域、设置代理服务器（由服务器替我们向不同源的服务器请求数据）、CORS（跨源资源共享，cross origin resource sharing）、iframe跨域、postMessage(包含iframe的页面向iframe传递消息)
+
+## ajax
+
+Ajax的原理简单来说，实际上就是通过XmlHttpRequest对象来向服务器发异步请求，从服务器获得数据，然后用javascript来操作DOM实现局部更新页面。
+
+参考：http://blog.csdn.net/liujiahan629629/article/details/17126727
+
+http://www.cnblogs.com/shenliang123/archive/2012/05/13/2498524.html
+
+```javascript
+//XMLHttpRequest对象用于在后台与服务器交换数据。
+var xhr=new XMLHttpRequest();
+xhr.open("GET",url,true);  //第一个参数指的是以何种方法请求数据(一般使用get和post方法)，第二个参数指的是请求的服务器地址，第三个参数是指是否采用异步请求，true为异步，false为同步。
+xhr.send(null);           //向服务器发送数据，不发送为null。
+xhr.onReadyState=function(){
+  if(xhr.readyState==4&&xhr.status==200){
+    return xhr.XMLResponds;
+  }
+}
+```
+
+```javascript
+//jQuery方式
+$.ajax({
+  methods:"GET",
+  url:"",
+  data:{},
+  timeout：2s,   //请求超时时间，此处请求超过2s没有得到响应意味着超时。
+  success:function(){}
+})
+```
+
+**ajax中get方法与post方法的区别？**
+
+1. get方法的参数放在url中，post方法的参数不会显示出来
+2. 使用Get请求发送数据量小,Post请求发送数据量大
+3. post的安全性更高
+
+## 谈谈垃圾回收机制方式及内存管理
+
+http://blog.csdn.net/oliver_web/article/details/53957021
+
+## 开发过程中遇到的内存泄露情况，如何解决的？
+
+http://blog.csdn.net/vuturn/article/details/45097353
+
+## es6有哪些语法特性？
+
+```javascript
+箭头操作符，类的支持，对象的字面量增强，字符串模板，默认参数，let与const，map，set，for of遍历
+```
+
+参考：http://www.cnblogs.com/Wayou/p/es6_new_features.html
+
+reduce()方法参考：http://www.cnblogs.com/jinling/p/6169008.html
+
+map()方法参考：http://www.cnblogs.com/xuan52rock/p/4460949.html
+
+# 其他部分
+
+## web安全:xss和csrf
+
+参考：http://www.cnblogs.com/wangyuyu/p/3388180.html
+
+http://www.cnblogs.com/443855539-wind/p/6055816.html
+
+### XSS
+
+XSS又称CSS，全称Cross SiteScript，跨站脚本攻击，是Web程序中常见的漏洞，XSS属于被动式且用于客户端的攻击方式，所以容易被忽略其危害性。
+其原理是攻击者向有XSS漏洞的网站中输入(传入)恶意的HTML代码，当其它用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。
+如，盗取用户Cookie、破坏页面结构、重定向到其它网站等。
+XSS攻击类似于SQL注入攻击，攻击之前，我们先找到一个存在XSS漏洞的网站，XSS漏洞分为两种，一种是DOM Based XSS漏洞，另一种是Stored XSS漏洞。
+理论上，所有可输入的地方没有对输入数据进行处理的话，都会存在XSS漏洞，漏洞的危害取决于攻击代码的威力，攻击代码也不局限于script。
+
+### CSRF
+
+参考：http://blog.csdn.net/sum_rain/article/details/37082353
+
+CSRF攻击是源于WEB的隐式身份验证机制！WEB的身份验证机制虽然可以保证一个请求是来自于某个用户的浏览器，但却无法保证该请求是用户批准发送的！
+服务端的CSRF方式方法很多样，但总的思想都是一致的，就是在客户端页面增加伪随机数。
+
+## 前端优化（提高网页的加载速度）
+
+1、使用css sprites，可以有效的减少http请求数
+2、使用缓存
+3、压缩js，css文件，减小文件体积
+4、使用cdn，减小服务器负担
+5、懒加载图片
+6、预加载css，js文件
+7、避免dom结构的深层次嵌套
+8、给DOM元素添加样式时，把样式放到类中，直接给元素添加类，减少重构，回流
+
+## http状态码
+
+http状态码是表示服务器对请求的响应状态，主要分为以下几个部分
+
+1**：这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束
+
+2**：表示请求成功，
+
+3**：表示重定向
+
+4**：表示客户端错误
+
+5**：表示服务器端错误
+
+100（continue），客户端应当继续发送请求。这个临时响应是用来通知客户端它的部分请求已经被服务器接收
+
+200（OK），表示请求成功，请求所希望的响应头或数据体将随此响应返回。
+
+202（Accepted），服务器已接受请求，但尚未处理。
+
+204（No-Content），服务器成功处理了请求，但不需要返回任何实体内容
+
+205（Reset-Content），服务器成功处理了请求，且没有返回任何内容。但是与204响应不同，返回此状态码的响应要求请求者重置文档视图。该响应主要是被用于接受用户输入后，立即重置表单，以便用户能够轻松地开始另一次输入。
+
+206（Partial-Content），服务器已经成功处理了部分 GET 请求。
+
+301（Moved-Permanently），永久性重定向
+
+302（Moved-Temporarily），暂时性重定向
+
+304（Not-Modified），浏览器端缓存的资源依然有效
+
+400（Bad-Reques），请求有误，当前请求无法被服务器理解。
+
+401（Unauthorized），当前请求需要用户验证。
+
+403（Forbidden），服务器已经理解请求，但是拒绝执行它。
+
+404（Not-Found），请求的资源没有被找到
+
+500（Interval Server Error），服务器内部错误
+
+502（Bad GateWay），网关出错
+
+503（Service Unavailable），由于临时的服务器维护或者过载，服务器当前无法处理请求。
+
+504（Gateway Timeout），作为网关或者代理工作的服务器尝试执行请求时，未能及时从上游服务器（URI标识出的服务器，例如HTTP、FTP、LDAP）或者辅助服务器（例如DNS）收到响应。
+
+## http请求与响应
+
+http请求头，http响应头，特别是和浏览器缓存有关的last-modify，eTag，cache-control，expires。
+
+参考：
+
+请求与响应全过程：http://www.mamicode.com/info-detail-1357508.html
+
+请求报文与响应报文：http://www.cnblogs.com/biyeymyhjob/archive/2012/07/28/2612910.html
+
+缓存机制：http://www.cnblogs.com/dojo-lzz/p/5515839.html
+
+## HTTPS是如何实现加密
+
+## 一个具体的http事务的过程
+
+从URL怎样得到一个页面的，这个过程是怎么样的？
+
+域名解析 --> 发起TCP的3次握手 --> 建立TCP连接后发起http请求 --> 服务器响应http请求，浏览器得到html代码 --> 浏览器解析html代码，并请求html代码中的资源（如js、css、图片等） --> 浏览器对页面进行渲染呈现给用户。
+
+渲染过程：
+
+1、首先获取html，然后构建dom树
+
+2、其次根据css构建render树，render树中不包含定位和几何信息
+
+3、最后构建布局数，布局是含有元素的定位和几何信息
+
+参考：http://www.cnblogs.com/LIUYANZUO/p/5428185.html
+
+## tcp三次握手及四次挥手
+
+参考：http://www.jellythink.com/archives/705
+
+http://www.cnblogs.com/dojo-lzz/p/4591446.html
+
+## 对MVC、MVVM的理解
+
+参考：http://www.jianshu.com/p/f4faa720f00d
+
+## 浏览器组成
+
+参考：http://blog.csdn.net/liyong199012/article/details/8520064
+
+# 数据结构与算法
+
+***电脑e盘的web前端学习资料中有详细教程***
+
+## 小谈数组去重
+
+参考：http://www.cnblogs.com/hlwyfeng/p/6754842.html
+
+## 关于排序：
+
+参考：http://www.cnblogs.com/dushao/p/6004883.html
+
+## 找出字符串中出现次数最多的字符
+
+1）使用正则表达式
+
+```javascript
+function foo(str){
+  var s=str.split("");
+  s=s.sort();
+  s=s.join("");
+  var pp=/(\w)\1*/g;
+  var arr=s.match(pp);
+  var res=arr.sort(function(a,b){return b.length-a.length;});
+  return res[0][0]+":"+res[0].length;
+}
+```
+
+2）使用对象的方法
+
+```javascript
+function foo(str){
+  var temp={};
+  for(var i=0;i<str.length;i++){
+    if(!temp[str[i]]){
+      temp[str[i]]=1;
+    }else{
+      temp[str[i]]++;
+    }
+  }
+  var stemp=Object.keys(temp).sort(function(a,b){return temp[b]-temp[a];});//返回的是数组。
+  return stemp[0]+":"+temp[stemp[0]];
+}
+```
+
+## 使用正则替换字符串中的个人信息
+
+```javascript
+function foo(str,data){
+  if(data.length===0){return "数据错误"}
+  var pp=/\<\% ([\w]*) \%\>/g;
+  var res=[];
+  var len=data.length;
+  for(var i=0;i<len;i++){
+    res.push(str.replace(pp,function(match,p1){
+        return data[i][p1]||"";
+    }));
+  }
+  return res;
+}
+```
+
+# 数据库知识
+
+MySQL，关系型数据库，里面叫表的，对象
+
+Mongodb，非关系型数据库，数据库里面就不叫表叫集合，一条数据就叫文档 mongodb是通过mongoose这个中间件来操作的。
+
+# 工具的使用
+
+## github
+
+**电脑e盘的web前端学习资料文件夹中有git和GitHub的安装步骤和使用方法**
+
+首先，在Github创建一个repository,比如叫douban
+
+然后，在打开git，输入命令，git clone https://github.com/shaniawei/douban
+
+然后，就会出现douban这个项目
+
+然后你可以修改里面的文件，修改完成后，要想在GitHub上面看到效果，就操作下面步骤
+
+git status
+
+git add *
+
+git commit -m "sfjsekjr"
+
+git push  //注意这里要输入用户名密码
+
+然后修改就可以在github上面看到了
+
+## gulp
+
+1.cnpm install gulp -g  安装全局环境下的gulp
+2.gulp -v                        //查看gulp版本，看是否安装成功
+3.cnpm init                   //创建package.json文件
+4.cnpm install gulp     //本地安装gulp，大家可能会觉得有些奇怪，刚不是安装了gulp吗？对，那是全局安装，为的是能在终端运行gulp任务，这里是项目级别的安装，真正的gulp模块安装到项目的node_modules/下了，后面的插件都是依赖gulp模块的。
+5.本地安装gulp插件
+cnpm install gulp-uglify：压缩js，减小文件大小
+cnpm install gulp-concat：合并js，减少网络请求
+cnpm install gulp-minify-css（已被废弃）/gulp-clean-css：压缩css，减小文件大小
+6.在同一目录下创建gulpfile.js文件，require需要的模块，例如：
+```javascript
+var gulp=require('gulp');
+var uglify=require('gulp-uglify');           //压缩js
+var minifycss = require('gulp-clean-css'),   //压缩css
+concat = require('gulp-concat'),             //合并js
+rename = require('gulp-rename'),             //重命名
+del = require('del');
+gulp.task('yasuo',function(){
+     gulp.src('./jquery-1.12.2.js')
+         .pipe(uglify())
+         .pipe(gulp.dest('./'))              //导出到那个文件夹中
+})
+```
+7.运行 gulp yasuo
+
+## webpack
+
+**电脑e盘的web前端学习资料文件夹中有webpack教程**
+
+http://www.jianshu.com/p/42e11515c10f
+
+1.cnpm install webpack -g    // 全局安装
+
+2.cnpm init                             //创建package.json文件
+
+3.cnpm install webpack       //本地安装webpack,大家可能会觉得有些奇怪，刚不是安装了webpack吗？对，那是全局安装，为的是能在终端运行webpack任务的。
+
+4.创建webpack.config.js文件，例如：
+
+```javascript
+var wepack=require('webpack');
+module.exports={
+   entry:__dirname+'/index.js',
+   output:{
+	  path:__dirname+"/release",
+	  filename:'release.js'
+   }
+}
+```
+5.运行 webpack
