@@ -1,4 +1,3 @@
-  //根据ip获取当前城市
   var _cityCurrent = '' ;
   $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){
       _cityCurrent = remote_ip_info["city"];console.log(_cityCurrent);
