@@ -1,0 +1,206 @@
+1.call和apply的使用与区别
+
+2.局部作用域与全局作用域
+
+var bb=1;
+function aa(bb){ bb=2;console.log(bb)}
+aa(bb)
+console.log(bb)
+
+2,1//结果
+
+bb作为一个值传入aa方法，相当于在aa方法中重新定义了一边bb
+
+
+9.js的原型链 原型
+hasOwnProperty  isPrototypeOf Object.defineProperty  hasPrototypeProperty
+
+11.typeof instanceof construct
+
+10.跨域问题
+
+13.常见的请求头响应头
+18.http协议 及其状态码
+14.AMD CMD COMMONJS规范
+12.cache-control escape ……缓存字段
+
+
+
+
+
+
+
+21.MVC结构
+
+23.indexDB 客户端的存储  实现离线应用
+
+4.SVG 意为可缩放矢量图形（Scalable Vector Graphics）。
+SVG 使用 XML 格式定义图像。
+
+5.SPA单页应用
+
+6.<!DOCTYPE>  DTD（document type definition）
+
+
+8.DHTML动态网页制作 将html/css/JavaScript组合在一起  不明白跟平时写的html网页有什么区别，除了没有引用其他文件，百度百科还说页面加载完后就无需跟服务器进行交互，这点不明白。
+
+
+
+
+
+
+
+
+26.let const var的区别
+var 作用于函数作用域内 存在变量提升
+let 作用于大括号内 不存在变量提升
+const 一旦定义不能更改
+
+
+
+16.web worker
+参考链接：
+http://www.cnblogs.com/jscode/p/3586567.html
+
+web worker 是运行在后台的JavaScript 是一个独立的脚本。与主线程互不干扰。
+JavaScript是单线程模型 web worker的目的就是为JavaScript创造多线程环境，允许主线程分一部分人物给子线程。
+web worker的特点：
+1.无法操作dom 譬如window document parent对象 但是可以使用navigator 和location对象
+2.web worker加载的文件必须与主线程的js文件在同一个域名下
+3.web worker无法获取网页的全局变量和函数 alert和confirm也不能使用 但是可以使用setInterval和setTimeout 以及xmlHttpRequest
+4.web worker无法读取本地的文件 只能加载线上的文件
+
+主线程与子线程通过postMessage通信 使用onmessage监听
+
+JavaScript为什么是单线程的？它是脚本文件 更多的是用于与用户的互动 假设一个线程要在某个节点上添加内容 另一个线程要删除该节点，这时浏览器该如何处理。
+
+
+3.浏览器渲染dom的重绘和重布局  浏览器的层概念
+https://segmentfault.com/a/1190000000490328
+只要涉及改变元素的位置或者大小，改变内部文字结构也会触发dom的重布局
+改变元素的外观 譬如背景颜色 字体颜色 边框颜色 圆角边框等 就会触发dom的重绘
+
+24.css布局中的BFC
+
+文档流分为定位流/浮动流/普通流，BFC(Block Formatting Context||块级格式化文本)是普通流的一种，它有自己的一块渲染区域，有自己的一套渲染规则
+根据这套渲染规则对其子元素进行布局。它是独立的 不会影响外部的元素 反之亦然。计算BFC元素的高度时，子浮动元素也会计算在内。这就是为什么解决高位坍塌时为父元素加上overflow:hidden就OK的原因。
+
+满足以下一个条件即可生成BFC元素
+1.float不为none
+2.overflow不为visible
+3.position为absolute||fixed
+4.display为inline-block||table-cell||table-caption||flex||inline-flex
+5.根元素为html
+
+参考链接：
+http://www.cnblogs.com/asheng2016/p/7281784.html
+http://www.jianshu.com/p/76484dff1cb5
+
+19.置换元素：img,input,select,textarea
+
+20.html5的新增的表单元素
+datalist：规定输入域的可选列表
+keygen
+output
+
+15.Ajax和flash的优劣势比较
+
+1.Ajax的优势：1.可搜索性 2.开放性 3.费用 4.易用性 5.易于开发。
+2.Flash的优势：1.多媒体处理 2.兼容性 3.矢量图形 4.客户端资源调度
+3.Ajax的劣势：1.它可能破坏浏览器的后退功能   2.使用动态页面更新使得用户难于将某个特定的状态保存到收藏夹中 ，不过这些都有相关方法解决。
+4.Flash的劣势：1.二进制格式 2.格式私有 3.flash 文件经常会很大，用户第一次使用的时候需要忍耐较长的等待时间  4.性能问题
+
+7.有窗口元素  无窗口元素 帧元素 表单元素 非表单元素
+在html中，帧元素（frameset）的优先级最高，表单元素比非表单元素的优先级要高。
+表单元素包括：文本输入框，密码输入框，单选框，复选框，文本输入域，列表框等等；
+非表单元素包括：连接（a），div,table,span等。
+所有的html元素又可以根据其显示分成两类：有窗口元素以及无窗口元素。有窗口元素总是显示在无窗口元素的前面。
+有窗口元素包括：select元素，object元素，以及frames元素等等。
+无窗口元素：大部分html元素都是无窗口元素。
+
+17.event.stopImmediatePropagation()
+如果某个元素有多个相同类型事件的事件监听函数,则当该类型的事件触发时,多个事件监听函数将按照顺序依次执行.如果某个监听函数执行了 event.stopImmediatePropagation()方法,则除了该事件的冒泡行为被阻止之外(event.stopPropagation方法的作用),该元素绑定的后序相同类型事件的监听函数的执行也将被阻止.
+
+22.关于IE、FF下面CSS的解释区别
+IE6.0的div的内嵌div可以把父级的高度撑大，而FireFox不可以，要自己设置高度。
+当设置为三列布局时，IE6.0的float宽度不能达到100％，而FireFox可以。当设置为两列布局时，两种浏览器都可以。
+火狐浏览器中，非float的div前面有同一父级的float的div，此div若有背景图，要使用clear：both，才能显示背景图，而IE6.0中不用使用clear：both
+在[text-decoration:underline]的属性下，IE6.0显示的下划线会比FireFox低一点。在FireFox中，部分笔画会在下划线的下面1个象素左右。
+
+25.promise的由来及用法
+
+js是单线程的 代码都是从上往下依次执行
+
+A();
+B();
+C();
+
+正常情况下我们预期的执行顺序应该是A->B->C
+但是假设 B的请求返回时间很长 C是要显示页面 这样就会造成网络卡顿
+解决方案就是把B分成两个部分，一部分执行请求任务，一部分执行请求回来后的任务(这一部分是在未来执行的任务)
+这个未来执行的任务就是我们所说的callback。
+A()
+ajax('url',function B(){
+	//请求回来后的任务
+});
+C()
+
+这样的话执行顺序就会是A->C->B,就不会造成网络卡顿。这样的代码虽然不符合我们的阅读风格 从上往下执行的 但是并没有造成很大的阅读障碍。
+但如果是这样呢
+
+A()
+ajax('url1',function(){
+	B();
+	ajax('url2',function(){
+		C()
+	})
+	D()
+})
+
+E()
+
+这里的执行顺序就会是A->E->B->D->C
+
+看着是不是觉得稍微有点困难了，这还不不算 毕竟还没有处理请求失败的callback
+
+A()
+ajax('url1',function(){
+	B();
+	ajax('url2',function(){
+		C()
+	},function(){
+		D();
+	})
+	E()
+}，function(){
+	F()
+})
+
+G()
+
+这样看着是不是更难受了 而且一旦出现bug也不好排查
+
+node这边为了解决异步回调的‘非线性’问题 提供了一种错误优先的方式  callback中的第一个参数 专门用于判断是否请求成功
+A()
+ajax('url1',function(error){
+	if(error){
+		B();
+	}else{
+		C()
+		ajax('url2',function((error)){
+			if(error){
+				D();
+			}else{
+				E();
+			}
+		})
+		F()
+	}
+})
+G()
+
+这样看着稍微舒服点 容易排查bug
+但是如果嵌套的请求很多 一直处于 if else嵌套中 阅读障碍也还是比较大 
+这时promise发挥了它极大的作用
+
+promise有对象包含着未来发生的事件  包括着三种状态 Pending Reject Resolved
