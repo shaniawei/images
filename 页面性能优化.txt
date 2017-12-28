@@ -1,6 +1,0 @@
-1.移动端最好使用小于100kb大小的图片
-2.pc端最好使用小于200kb大小的图片
-3.页面运行时的性能表现监测 链接：https://zhuanlan.zhihu.com/p/29879682
-4.使用chrome开发工具的waterfall 查看页面加载的具体情况 根据不同的指标进行页面的优化
-链接：https://www.cnblogs.com/shengulong/p/7449927.html
-https://www.zhihu.com/question/27085552/answer/35194131
