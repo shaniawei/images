@@ -1,4 +1,5 @@
 [TOC]
+- [Introduction](#introduction)
 - [gulp API docs](#gulp API docs)
 
 Gulp是一种构建工具，能够优化前端工作流程。比如自动刷新页面、压缩css、js、编译less等等。简单来说，就是使用Gulp，然后配置你需要的插件，就可以把以前需要手工做的事情让它帮你做了。
