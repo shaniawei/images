@@ -23,7 +23,7 @@ if(canvasDom.getContext){ //浏览器支持canvas
 }
 ```
 
-各种效果查看
+[各种效果查看](https://shaniawei.github.io/resource/canvas/canvas.html)
 
 不同于svg，canvas只支持一种原生的图形绘制，即 矩形。其他的图形都需要生成至少一条路径。好在可以使用多条路径绘制各种复杂的图形。
 
