@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvasStudy</title>
+    <script src="./flexible.min.js"></script>
+    <style>
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas1" width="100" height="100">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas2" width="100" height="100">
+        你的浏览器不支持canvas
+    </canvas>
+    <!-- 三角形 -->
+    <canvas id="canvas3" width="100" height="100">
+        你的浏览器不支持canvas
+    </canvas>
+    <!-- 圆形 -->
+    <canvas id="canvas4" width="100" height="100">
+        你的浏览器不支持canvas
+    </canvas>
+
+    <canvas id="canvas5" width="100" height="100">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas6" width="100" height="100">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas7" width="300" height="300">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas8" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas9" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas10" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas11" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas12" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <script>
+        function draw() {
+            var canvasDom1 = document.getElementById('canvas1')
+            if (canvasDom1.getContext) { //浏览器支持canvas
+                var ctx1 = canvasDom1.getContext('2d'); //创建渲染对象
+
+                //填充矩形框
+                ctx1.fillStyle = 'rgb(200, 0, 0)'; //填充颜色
+                ctx1.fillRect(10, 10, 50, 50); //第一个和第二个参数是在canvas画布中的坐标位置，第三个第四个指矩形的宽高
+
+                //填充矩形框 有透明度的
+                ctx1.fillStyle = 'rgba(0, 0, 200, 0.5)'
+                ctx1.fillRect(30, 30, 50, 50)
+
+                //绘制一个无填充的矩形
+                ctx1.strokeStyle = '#f00'; //笔触颜色 指的是矩形边框的颜色，没有填充
+                ctx1.strokeRect(50, 50, 50, 50)
+
+                //清楚指定范围内的绘制，其实就是将其变为透明的
+                ctx1.clearRect(10, 10, 30, 30)
+            } else { //浏览器不支持canvas
+
+            }
+
+            var canvasDom2 = document.getElementById('canvas2')
+            if (canvasDom2.getContext) { //浏览器支持canvas
+                var ctx2 = canvasDom2.getContext('2d'); //创建渲染对象
+                ctx2.fillRect(20, 20, 60, 60)
+                ctx2.clearRect(30, 30, 40, 40)
+                ctx2.strokeRect(40, 40, 20, 20)
+
+            } else { //浏览器不支持canvas
+
+            }
+
+
+            //三角形
+            var canvasDom3 = document.getElementById('canvas3');
+            if (canvasDom3.getContext) { //浏览器支持canvas
+                var ctx3 = canvasDom3.getContext('2d');
+                ctx3.beginPath()
+                ctx3.moveTo(50, 50) //起始位置 坐标
+                ctx3.lineTo(100, 75) //到达位置 坐标
+                ctx3.lineTo(100, 25)
+                ctx3.fill(); //闭合路径
+            } else { //浏览器不支持canvas
+
+            }
+
+            //笑脸
+            var canvasDom4 = document.getElementById('canvas4');
+            if (canvasDom4.getContext) { //浏览器支持canvas
+                var ctx4 = canvasDom4.getContext('2d');
+                ctx4.beginPath()
+                ctx4.arc(50, 50, 30, 0, 2 * Math.PI, false) //绘制圆形
+                ctx4.moveTo(70, 50) //更换下一个路径的开始位置
+                ctx4.arc(50, 50, 20, 0, Math.PI, false)
+                ctx4.moveTo(45, 40)
+                ctx4.arc(40, 40, 5, 0, 2 * Math.PI, false)
+                ctx4.moveTo(65, 40)
+                ctx4.arc(60, 40, 5, 0, 2 * Math.PI, false)
+                ctx4.closePath();
+                ctx4.stroke();
+            } else { //浏览器不支持canvas
+
+            }
+
+            //两个三角形
+            var canvasDom5 = document.getElementById('canvas5');
+            if (canvasDom5.getContext) { //浏览器支持canvas
+                var ctx5 = canvasDom5.getContext('2d');
+                //填充三角形
+                ctx5.beginPath()
+                ctx5.moveTo(10, 10) //起始位置 坐标
+                ctx5.lineTo(50, 10) //到达位置 坐标
+                ctx5.lineTo(10, 50)
+                ctx5.fill(); //闭合路径
+
+                //描边三角形
+                ctx5.beginPath()
+                ctx5.moveTo(90, 90) //起始位置 坐标
+                ctx5.lineTo(50, 90) //到达位置 坐标
+                ctx5.lineTo(90, 50)
+                ctx5.closePath()
+                ctx5.stroke(); //闭合路径
+            } else { //浏览器不支持canvas
+
+            }
+
+            //两条直线之间弧线结合
+            var canvasDom6 = document.getElementById('canvas6');
+            if (canvasDom6.getContext) { //浏览器支持canvas
+                var ctx6 = canvasDom6.getContext('2d');
+                ctx6.beginPath()
+                ctx6.moveTo(10, 10)
+                ctx6.lineTo(40, 10)
+                ctx6.arcTo(70, 10, 70, 50, 20)
+                ctx6.lineTo(70, 90)
+                ctx6.stroke(); //闭合路径
+            } else { //浏览器不支持canvas
+
+            }
+
+            //同时绘制各种不同的圆弧
+            var canvasDom7 = document.getElementById('canvas7');
+            if (canvasDom7.getContext) { //浏览器支持canvas
+                var ctx7 = canvasDom7.getContext('2d');
+                for (var i = 0; i < 4; i++) {
+                    for (var j = 0; j < 3; j++) {
+                        ctx7.beginPath();
+                        var x = 50 + j * 100;
+                        var y = 50 + i * 100;
+                        var radius = 30;
+                        var startAngle = 0;
+                        var endAngle = Math.PI + (Math.PI * j) / 2
+                        var direct = i % 2 == 0 ? false : true;
+                        ctx7.arc(x, y, radius, startAngle, endAngle, direct)
+                        if (i < 2) {
+                            ctx7.stroke()
+                        } else {
+                            ctx7.fill()
+                        }
+                    }
+                }
+            } else { //浏览器不支持canvas
+
+            }
+
+            // 二次贝塞尔曲线
+            var canvasDom8 = document.getElementById('canvas8');
+            if (canvasDom8.getContext) {
+                var ctx8 = canvasDom8.getContext('2d');
+                ctx8.beginPath();
+                ctx8.moveTo(75, 25);
+                ctx8.quadraticCurveTo(25, 25, 25, 62.5);
+                ctx8.quadraticCurveTo(25, 100, 50, 100);
+                ctx8.quadraticCurveTo(50, 120, 30, 125);
+                ctx8.quadraticCurveTo(60, 120, 65, 100);
+                ctx8.quadraticCurveTo(125, 100, 125, 62.5);
+                ctx8.quadraticCurveTo(125, 25, 75, 25);
+                ctx8.stroke();
+            } else { //浏览器不支持canvas
+
+            }
+
+            var canvasDom9 = document.getElementById('canvas9');
+            if (canvasDom9.getContext) {
+                var ctx9 = canvasDom9.getContext('2d');
+                ctx9.beginPath();
+                ctx9.arc(100, 100, 50, Math.PI / 7, -Math.PI / 7, false);
+                ctx9.lineTo(80, 100);
+                ctx9.fill();
+
+            } else { //浏览器不支持canvas
+
+            }
+
+            //圆角矩形
+            var canvasDom10 = document.getElementById('canvas10');
+            if (canvasDom10.getContext) {
+                var ctx10 = canvasDom10.getContext('2d');
+                //也可以用二次贝塞尔曲线
+                ctx10.beginPath();
+                ctx10.moveTo(100, 20)
+                ctx10.lineTo(50, 20)
+                ctx10.arcTo(20, 20, 20, 50, 20)
+                ctx10.lineTo(20, 100)
+                ctx10.arcTo(20, 120, 50, 120, 20)
+                ctx10.lineTo(100, 120)
+                ctx10.arcTo(120, 120, 120, 100, 20)
+                ctx10.lineTo(120, 40)
+                ctx10.arcTo(120, 20, 100, 20, 20)
+                ctx10.stroke();
+
+            } else { //浏览器不支持canvas
+
+            }
+
+            //透明度
+            var canvasDom11 = document.getElementById('canvas11');
+            if (canvasDom11.getContext) {
+                var ctx11 = canvasDom11.getContext('2d');
+                ctx11.fillStyle = 'orange'
+                ctx11.fillRect(10, 10, 60, 60)
+                ctx11.fillStyle = 'red'
+                ctx11.fillRect(70, 10, 60, 60)
+                ctx11.fillStyle = 'blue'
+                ctx11.fillRect(10, 70, 60, 60)
+                ctx11.fillStyle = 'green'
+                ctx11.fillRect(70, 70, 60, 60)
+                ctx11.fillStyle = 'rgba(255,255,255,0.2)'
+                for (var i = 0; i < 5; i++) {
+                    ctx11.beginPath();
+                    ctx11.arc(70, 70, 20 + i * 10, 0, 2 * Math.PI, false);
+                    ctx11.fill();
+                }
+
+            } else { //浏览器不支持canvas
+
+            }
+
+        }
+        window.onload = function() {
+            draw();
+        }
+    </script>
+</body>
+
+</html>
