@@ -14,28 +14,28 @@
 </head>
 
 <body>
-    <canvas id="canvas1" width="100" height="100">
+    <canvas id="canvas1" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
-    <canvas id="canvas2" width="100" height="100">
+    <canvas id="canvas2" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
     <!-- 三角形 -->
-    <canvas id="canvas3" width="100" height="100">
+    <canvas id="canvas3" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
     <!-- 圆形 -->
-    <canvas id="canvas4" width="100" height="100">
+    <canvas id="canvas4" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
 
-    <canvas id="canvas5" width="100" height="100">
+    <canvas id="canvas5" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
-    <canvas id="canvas6" width="100" height="100">
+    <canvas id="canvas6" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
-    <canvas id="canvas7" width="300" height="300">
+    <canvas id="canvas7" width="300" height="300" style="display: block;margin: 20px 0;">
         你的浏览器不支持canvas
     </canvas>
     <canvas id="canvas8" width="200" height="200">
@@ -51,6 +51,30 @@
         你的浏览器不支持canvas
     </canvas>
     <canvas id="canvas12" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas13" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas14" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas15" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas16" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas17" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas18" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas19" width="200" height="200">
+        你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas20" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
     <script>
@@ -231,7 +255,7 @@
 
             }
 
-            //透明度
+            //圆形透明度
             var canvasDom11 = document.getElementById('canvas11');
             if (canvasDom11.getContext) {
                 var ctx11 = canvasDom11.getContext('2d');
@@ -253,6 +277,121 @@
             } else { //浏览器不支持canvas
 
             }
+
+            //矩形透明度
+            var canvasDom12 = document.getElementById('canvas12');
+            if (canvasDom12.getContext) {
+                var ctx12 = canvasDom12.getContext('2d');
+                ctx12.fillStyle = 'orange'
+                ctx12.fillRect(10, 10, 100, 40)
+                ctx12.fillStyle = 'red'
+                ctx12.fillRect(10, 60, 100, 40)
+                ctx12.fillStyle = 'blue'
+                ctx12.fillRect(10, 110, 100, 40)
+                for (var i = 0; i < 5; i++) {
+                    ctx12.fillStyle = 'rgba(225,225,225,' + (0.8 - i * 0.1) + ')'
+                    for (var j = 0; j < 3; j++) {
+                        ctx12.fillRect(10 + i * 20, 15 + j * 50, 20, 30)
+                    }
+                }
+
+            } else { //浏览器不支持canvas
+
+            }
+
+            //不同长度的线条 此处注意网格与坐标之间的耦合
+            var canvasDom13 = document.getElementById('canvas13');
+            if (canvasDom13.getContext) {
+                var ctx13 = canvasDom13.getContext('2d');
+                for (var i = 0; i < 5; i++) {
+                    ctx13.beginPath();
+                    ctx13.moveTo(10 + i * 10, 10)
+                    ctx13.lineTo(10 + i * 10, 150)
+                    ctx13.lineWidth = i + 1;
+                    ctx13.stroke()
+
+                }
+            } else { //浏览器不支持canvas
+
+            }
+
+            //不同lineCap的线条，有butt，round，square ，默认butt
+            var canvasDom14 = document.getElementById('canvas14');
+            var lineCap = ['butt', 'round', 'square']
+            if (canvasDom14.getContext) {
+                var ctx14 = canvasDom14.getContext('2d');
+                for (var i = 0; i < lineCap.length; i++) {
+                    ctx14.beginPath();
+                    ctx14.moveTo(10 + i * 30, 10)
+                    ctx14.lineTo(10 + i * 30, 150)
+                    ctx14.lineCap = lineCap[i];
+                    ctx14.lineWidth = 10;
+                    ctx14.stroke()
+
+                }
+            } else { //浏览器不支持canvas
+
+            }
+
+            //lineJoin属性，有round，bevel，miter ，默认miter
+            var canvasDom15 = document.getElementById('canvas15');
+            var lineJoin = ['bevel', 'round', 'miter']
+            if (canvasDom15.getContext) {
+                var ctx15 = canvasDom15.getContext('2d');
+                for (var i = 0; i < lineJoin.length; i++) {
+                    ctx15.beginPath();
+                    ctx15.lineWidth = 10;
+                    ctx15.lineJoin = lineJoin[i]
+                    ctx15.moveTo(20, 20 + i * 40)
+                    ctx15.lineTo(60, 60 + i * 40)
+                    ctx15.lineTo(100, 20 + i * 40)
+                    ctx15.lineTo(140, 60 + i * 40)
+                    ctx15.lineTo(180, 20 + i * 40)
+                    ctx15.stroke()
+                }
+            } else { //浏览器不支持canvas
+
+            }
+
+            //miterLimit属性
+            var canvasDom16 = document.getElementById('canvas16');
+            if (canvasDom16.getContext) {
+                var ctx16 = canvasDom16.getContext('2d');
+                ctx16.beginPath()
+                ctx16.lineWidth = 10;
+                ctx16.miterLimit = 1 //如果交点距离(外延交点与连接点的最大距离)大于这个值，线与线之间的结合就会变成bevel
+                ctx16.moveTo(20, 20)
+                ctx16.lineTo(60, 60)
+                ctx16.lineTo(100, 20)
+                ctx16.lineTo(140, 60)
+                ctx16.lineTo(180, 20)
+                ctx16.stroke()
+            } else { //浏览器不支持canvas
+
+            }
+
+            //虚线制作
+            var ctx17 = document.getElementById('canvas17').getContext('2d');
+            var offset = 0;
+
+            function draw() {
+                ctx17.clearRect(0, 0, canvas17.width, canvas17.height);
+                ctx17.setLineDash([4, 2]);
+                ctx17.lineDashOffset = -offset;
+                ctx17.strokeRect(10, 10, 100, 100);
+            }
+
+            function march() {
+                offset++;
+                if (offset > 16) {
+                    offset = 0;
+                }
+                draw();
+                // setTimeout(march, 20);
+            }
+
+            march();
+
 
         }
         window.onload = function() {
