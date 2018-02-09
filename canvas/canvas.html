@@ -77,6 +77,36 @@
     <canvas id="canvas20" width="200" height="200">
         你的浏览器不支持canvas
     </canvas>
+    <canvas id="canvas21" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas22" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas23" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas24" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas25" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas26" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas27" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas28" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas29" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
+    <canvas id="canvas30" width="200" height="200">
+            你的浏览器不支持canvas
+    </canvas>
     <script>
         function draw() {
             var canvasDom1 = document.getElementById('canvas1')
@@ -127,22 +157,17 @@
             }
 
             //笑脸
-            var canvasDom4 = document.getElementById('canvas4');
-            if (canvasDom4.getContext) { //浏览器支持canvas
-                var ctx4 = canvasDom4.getContext('2d');
-                ctx4.beginPath()
-                ctx4.arc(50, 50, 30, 0, 2 * Math.PI, false) //绘制圆形
-                ctx4.moveTo(70, 50) //更换下一个路径的开始位置
-                ctx4.arc(50, 50, 20, 0, Math.PI, false)
-                ctx4.moveTo(45, 40)
-                ctx4.arc(40, 40, 5, 0, 2 * Math.PI, false)
-                ctx4.moveTo(65, 40)
-                ctx4.arc(60, 40, 5, 0, 2 * Math.PI, false)
-                ctx4.closePath();
-                ctx4.stroke();
-            } else { //浏览器不支持canvas
-
-            }
+            var ctx4 = document.getElementById('canvas4').getContext('2d');
+            ctx4.beginPath()
+            ctx4.arc(50, 50, 30, 0, 2 * Math.PI, false) //绘制圆形
+            ctx4.moveTo(70, 50) //更换下一个路径的开始位置
+            ctx4.arc(50, 50, 20, 0, Math.PI, false)
+            ctx4.moveTo(45, 40)
+            ctx4.arc(40, 40, 5, 0, 2 * Math.PI, false)
+            ctx4.moveTo(65, 40)
+            ctx4.arc(60, 40, 5, 0, 2 * Math.PI, false)
+            ctx4.closePath();
+            ctx4.stroke();
 
             //两个三角形
             var canvasDom5 = document.getElementById('canvas5');
@@ -374,10 +399,10 @@
             var ctx17 = document.getElementById('canvas17').getContext('2d');
             var offset = 0;
 
-            function draw() {
+            function drawDashed() {
                 ctx17.clearRect(0, 0, canvas17.width, canvas17.height);
-                ctx17.setLineDash([4, 2]);
-                ctx17.lineDashOffset = -offset;
+                ctx17.setLineDash([4, 2]); //用于指向线段与间隙的交替
+                ctx17.lineDashOffset = -offset; //设置虚线的起始位置？不太明白
                 ctx17.strokeRect(10, 10, 100, 100);
             }
 
@@ -386,11 +411,64 @@
                 if (offset > 16) {
                     offset = 0;
                 }
-                draw();
-                // setTimeout(march, 20);
+                drawDashed();
+                setTimeout(march, 20);
             }
 
             march();
+
+            //线性渐变
+            var canvas18 = document.getElementById('canvas18').getContext('2d')
+            var lineGra = canvas18.createLinearGradient(10, 10, 0, 150) //线性渐变的起点终点坐标
+            lineGra.addColorStop(0, 'red')
+            lineGra.addColorStop(1, 'green')
+            canvas18.fillStyle = lineGra
+            canvas18.fillRect(10, 10, 150, 150)
+
+            //线性渐变
+            var canvas19 = document.getElementById('canvas19').getContext('2d')
+            var lineGra = canvas19.createLinearGradient(10, 10, 10, 160)
+            lineGra.addColorStop(0, '#0ecfea')
+            lineGra.addColorStop(0.5, '#fff')
+            lineGra.addColorStop(0.5, 'green')
+            lineGra.addColorStop(1, '#fff')
+            var lineGra2 = canvas19.createLinearGradient(0, 100, 0, 130)
+            lineGra2.addColorStop(0.5, '#000')
+            lineGra2.addColorStop(1, 'rgba(0,0,0,0)')
+            canvas19.strokeStyle = lineGra2
+            canvas19.fillStyle = lineGra
+            canvas19.fillRect(10, 10, 160, 160)
+            canvas19.strokeRect(40, 40, 100, 100)
+
+            //径向渐变
+            var canvas20 = document.getElementById('canvas20').getContext('2d');
+            var radgrad = canvas20.createRadialGradient(45, 45, 10, 52, 50, 30);
+            radgrad.addColorStop(0, '#A7D30C');
+            radgrad.addColorStop(0.9, '#019F62');
+            radgrad.addColorStop(1, 'rgba(1,159,98,0)');
+            canvas20.fillStyle = radgrad;
+            canvas20.fillRect(0, 0, 150, 150);
+
+            //重复图案
+            var canvas21 = document.getElementById('canvas21').getContext('2d')
+            var img = new Image()
+            img.src = 'icon_attention.png'
+            img.onload = function() {
+                var pattern = canvas21.createPattern(img, 'repeat')
+                canvas21.fillStyle = pattern
+                canvas21.fillRect(0, 0, 200, 200)
+            }
+
+            //文字阴影
+            var canvas22 = document.getElementById('canvas22').getContext('2d')
+            canvas22.shadowOffsetX = 5 //向右偏移距离 负数表示向左偏移
+            canvas22.shadowOffsetY = 2 //向下偏移距离 负数便是向上偏移
+            canvas22.shadowBlur = 2 //模糊程度
+            canvas22.shadowColor = '#000' //模糊颜色
+            canvas22.font = '30px Times New Roman' //字号大小 字体
+            canvas22.fillStyle = '#000'; //字体颜色
+            // canvas22.fillText("Sample String", 10, 50);
+            canvas22.strokeText("Sample String", 10, 50); //填充文字 文字开始位置坐标
 
 
         }
